@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">		
+		<title>Bài tập :: B1913236</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	</head>
+	<body>	
+		<div class="container" style="margin-top: 50px; margin-bottom: 50px;">					
+
+			<div class="col-md-12">
+				<h4>Bạn muốn?</h4>
+				<button id="_b1" style="margin-top: 10px;" class="btn btn-primary" type="button">Tính diện tích và chu vi tam giác</button>
+				<button id="_b2" style="margin-top: 10px;" class="btn btn-success" type="button">Tính N!</button>
+				<button id="_b3" style="margin-top: 10px;" class="btn btn-danger" type="button">Tính A^B</button>
+			</div>
+
+			<div id="panelTriangle" style="display: none; margin-top: 10px;" class="col-md-12">
+				<h4>Tam giác: </h4>			
+				<div class="row">
+					<div class="col-md-12">
+						<label>
+							Nhập cạnh A:
+							<input id="_a" class="form-control" type="number" name="" value="">
+						</label>					
+					</div>
+					<div class="col-md-12">
+						<label>
+							Nhập cạnh B:
+							<input id="_b" class="form-control" type="number" name="" value="">
+						</label>					
+					</div>
+					<div class="col-md-12">
+						<label>
+							Nhập cạnh C:
+							<input id="_c" class="form-control" type="number" name="" value="">
+						</label>					
+					</div>
+				</div>
+				<button id="getInfoTriangle" class="btn btn-primary" type="button">Xuất thông tin</button>
+				<p id="typeTriangle" style="display: none;">Tam giác: ? . ?</p>
+				<p id="sTriangle" style="display: none;">Diện tích: ? . ?</p>
+				<p id="pTriangle" style="display: none;">Chu vi: ? . ?</p>
+			</div>
+			<div id="panelFac" style="display: none; margin-top: 10px;" class="col-md-12">
+				<h4>Luỹ thừa: A mũ B</h4>			
+				<div class="row">
+					<div class="col-md-12">
+						<label>
+							Nhập A:
+							<input id="_base" class="form-control" type="number" name="" value="">
+						</label>					
+						<label>
+							Nhập B:
+							<input id="_exp" class="form-control" type="number" name="" value="">
+						</label>	
+					</div>				
+				</div>
+				<button id="calcPow" class="btn btn-primary" type="button">Tính A^B</button>
+				<textarea disabled="true" class="form-control" style="margin-top: 10px;" rows="5" id="ansPow" style="display: block;">Kết quả: NULL</textarea>							
+			</div>
+			<div id="panelPow" style="margin-top: 10px; display: none;" class="col-md-12">
+				<h4>Giai thừa: N!</h4>			
+				<div class="row">
+					<div class="col-md-12">
+						<label>
+							Nhập N:
+							<input id="_gt" class="form-control" type="number" name="" value="">
+						</label>					
+					</div>				
+				</div>
+				<button id="calcFactorial" class="btn btn-primary" type="button">Tính N!</button>
+				<textarea disabled="true" class="form-control" style="margin-top: 10px;" rows="5" id="ansFactorial" style="display: block;">Kết quả: NULL</textarea>							
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>	
+		<script type="text/javascript">
+
+			function resetPanel() {
+				$('#panelPow').css("display", "none");
+				$('#panelTriangle').css("display", "none");
+				$('#panelFac').css("display", "none");
+			}
+
+			$('#_b1').click(() => {
+				resetPanel();			
+				$('#panelTriangle').css("display", "block");
+			});
+
+			$('#_b2').click(() => {
+				resetPanel();			
+				$('#panelFac').css("display", "block");
+			});
+
+			$('#_b3').click(() => {
+				resetPanel();			
+				$('#panelPow').css("display", "block");
+			});
+
+			$('#calcPow').click(() => {
+				var A = ($('#_base').val());
+				var B = ($('#_exp').val());
+				if(A == 0 || B == 0) {
+					$('#ansPow').html(`Vui lòng nhập đầy đủ thông tin.`);
+				} else {
+					A = parseInt(A);
+					B = parseInt(B);
+					var Result = BigInt(1);
+					for(var i = 1n; i <= B; i++) {
+						Result *= BigInt(A);
+					}
+					$('#ansPow').html(`Kết quả: ${Result}`);
+				}
+			});
+
+			$('#calcFactorial').click(() => {
+				var N = ($('#_gt').val());
+				if(N == 0) {
+					$('#ansFactorial').html(`Vui lòng nhập N.`);
+				} else {
+					N = parseInt(N);
+					var Result = BigInt(1);
+					for(var i = 1n; i <= N; i++) {
+						Result *= i;
+					}
+					$('#ansFactorial').html(`Kết quả: ${Result}`);
+				}
+			});
+
+			$('#getInfoTriangle').click(() => {
+				var A = parseInt($('#_a').val());
+				var B = parseInt($('#_b').val());
+				var C = parseInt($('#_c').val());
+				if(A == 0 || B == 0 || C == 0) {
+					$('#typeTriangle').html("Vui lòng nhập đầy đủ thông tin");
+					$('#typeTriangle').css("display", "block");
+				} else {
+					console.log("Da nhap vao: " + A + " " + B + " " + C);
+					if(A + B > C && A + C > B && B + C > A) {										
+						var typeTriangle = "vuông";
+						if(A == B && B == C) {
+							typeTriangle = "đều";
+						} else if(A*A + B*B == C*C || B*B + C*C == A*A || A*A + C*C == B*B) {
+								if(A == B || B == C) {
+									typeTriangle = "vuông cân";
+								} else {
+									typeTriangle = "vuông";		
+								}
+						} else if(A == B || A == C || B == C) {
+							typeTriangle = "cân";
+						} else {
+							typeTriangle = "thường";
+						}
+						$('#typeTriangle').html(`Tam giác: ${typeTriangle}`);
+						$('#typeTriangle').css("display", "block");
+						var P = (A + B + C) / 2;
+						$('#sTriangle').html(`Diện tích tam giác: ${Math.sqrt(P* (P - A) * (P - B) * (P - C))}`);
+						$('#sTriangle').css("display", "block");
+						$('#pTriangle').html(`Chu vi tam giác: ${(A + B + C)}`);
+						$('#pTriangle').css("display", "block");
+					} else {
+						$('#typeTriangle').html(`Không là tam giác`);
+						$('#typeTriangle').css("display", "block");
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
