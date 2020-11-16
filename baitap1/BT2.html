@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 2</title>
+</head>
+
+<body>
+    <div>
+        <center>
+            <form id="frmSell" name="frmSell" action="#">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Mã sản phẩm: </td>
+                            <td>
+                                <input type="text" name="inpMaSP" id="inpMaSP" value="" placeholder="1">
+                            </td>
+                            <td rowspan="3">
+                                <img id="imgSrc" width="150" style="border-radius: 5px;" src="https://cafeauto.vn/image-data/300-223/static1.cafeland.vn/cafeauto/imagedata/hinhanh/xetheohang/2018/01/tuan-02/ngamsieubolamborghiniaventadorsdocnhatvietnam50tydong/ngam-sieu-bo-lamborghini-aventador-s-doc-nhat-viet-nam-50-ty-dong-1516017258.jpg"
+                                    alt="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hình sản phẩm:</td>
+                            <td>
+                                <select name="inpHinh" id="inpHinh" onchange="changePicture(value);">
+                                    <option value="https://cafeauto.vn/image-data/300-223/static1.cafeland.vn/cafeauto/imagedata/hinhanh/xetheohang/2018/01/tuan-02/ngamsieubolamborghiniaventadorsdocnhatvietnam50tydong/ngam-sieu-bo-lamborghini-aventador-s-doc-nhat-viet-nam-50-ty-dong-1516017258.jpg">Hình 1</option>
+                                    <option value="https://cafeauto.vn/image-data/300-223/static1.cafeland.vn/cafeauto/imagedata/hinhanh/xetheohang/2018/02/tuan-01/honda%E2%80%9Cxonuoc%E2%80%9D150rdophanhabskemvoihangloatdochoikhung/honda-%E2%80%9Cxo-nuoc%E2%80%9D-150r-do-phanh-abs-kem-voi-hang-loat-do-choi-khung-1517914592.jpg">Hình 2</option>
+                                    <option value="https://s3.storage.2banh.vn/image/2017/02/danh-gia-xe-vision-2017-moi-chi-tiet-hinh-anh-6019-1487150287-58a41ccf405e2.jpg">Hình 3</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Giá sản phẩm:</td>
+                            <td><input type="number" name="inpGia" id="inpGia" placeholder="0 VNĐ"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="addData();" type="button">Chọn sản phẩm</button>
+            </form>
+        </center>
+        <hr>
+        <center>
+            <div id="panelData" style="display: none;">
+                <table width="50%" border="1">
+
+                    <body>
+                        <tr>
+                            <td width="50%">Mã sản phẩm: </td>
+                            <td id="txtMaSP"></td>
+                        </tr>
+                        <tr>
+                            <td>Hình sản phẩm:</td>
+                            <td id="txtHinhSP"></td>
+                        </tr>
+                        <tr>
+                            <td>Giá sản phẩm: </td>
+                            <td id="txtGiaSP"></td>
+                        </tr>
+                    </body>
+                </table>
+            </div>
+        </center>
+    </div>
+
+    <script>
+        function changePicture(value) {
+            console.log(value);
+            document.frmSell.imgSrc.src = value;
+        }
+
+        function addData() {
+
+            if (document.frmSell.inpMaSP.value == "") {
+                alert("Không được để trống Mã SP!");
+                return;
+            }
+
+            if (document.frmSell.inpGia.value == "") {
+                alert("Không được để trống Giá!");
+                return;
+            }
+
+            document.getElementById("txtMaSP").innerHTML = `${document.frmSell.inpMaSP.value}`;
+            document.getElementById("txtHinhSP").innerHTML = `${document.frmSell.inpHinh.options[document.frmSell.inpHinh.selectedIndex].text}`;
+            document.getElementById("txtGiaSP").innerHTML = `${document.frmSell.inpGia.value} VNĐ`;
+            document.getElementById("panelData").style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
